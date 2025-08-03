@@ -1,21 +1,17 @@
 FROM node:lts-alpine as build-stage
 
-WORKDIR /app
+WORKDIR /frontend
 
-# Копируем скрипт
-COPY docker/entrypoint.sh .
-
-# Делаем его исполняемым
-RUN chmod +x entrypoint.sh
-
-# Остальные шаги сборки
 COPY package*.json .
 RUN npm ci
 COPY . .
 RUN npm run build
 
 FROM nginx:stable-alpine
-COPY --from=build-stage /app/dist /usr/share/nginx/html
-COPY --from=build-stage /app/config.js /usr/share/nginx/html/config.js
+COPY --from=build-stage /frontend/dist /usr/share/nginx/html
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+RUN chmod +x /usr/local/bin/entrypoint.sh
 EXPOSE 80
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
