@@ -1,24 +1,33 @@
 .recipes {
-    padding: 20px 10px;
+  padding: 20px 10px;
+  min-height: 100vh;
 }
 
 .recipes-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.recipes-list {
+  padding: 10px;
 }
 
 .recipes-list__item {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .recipes-list__item:not(:last-child) {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .recipes-list__item:hover {
-    transition: box-shadow 0.1s linear;
-    box-shadow: 0 0 2px #fff;
+  transition: box-shadow 0.1s linear;
+  box-shadow: 0 0 2px #fff;
+}
+
+.recipes-list__item-lasttime {
+  text-align: right;
 }

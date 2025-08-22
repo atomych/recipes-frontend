@@ -1,5 +1,5 @@
-import getById from "@/infrastructure/user/get-by-id";
+import getInfo from '@/infrastructure/user/get-info.ts';
 
 export default {
-    getById,
-}
+  getInfo,
+};

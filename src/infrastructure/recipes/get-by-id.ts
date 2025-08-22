@@ -1,21 +1,23 @@
-import query from "@/infrastructure/query";
+import query from '@/infrastructure/query';
 
 export type InfraRecipesGetByIdParams = {
-    userId: number;
-    recipeId: number;
-}
+  id: string;
+};
 
 export type InfraRecipesGetByIdResponse = Partial<{
-    id: number;
-    title: string;
-    description: string;
-    ingredients: string[];
+  id: string;
+  title: string;
+  description: string;
+  ingredients: string[];
+  tags: string[];
+  last_update: string;
 }>;
 
-export default function(payload: InfraRecipesGetByIdParams): Promise<InfraRecipesGetByIdResponse> {
-    return query<InfraRecipesGetByIdResponse>(
-        "/api/recipes",
-        "GET",
-        payload,
-    )
+export default function (
+  payload: InfraRecipesGetByIdParams
+): Promise<InfraRecipesGetByIdResponse> {
+  return query<InfraRecipesGetByIdResponse>(
+    '/api/recipes/' + payload.id,
+    'GET'
+  );
 }

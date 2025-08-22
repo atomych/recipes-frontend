@@ -1,39 +1,48 @@
-import { type InfraRecipesGetByIdResponse } from "@/infrastructure/recipes/get-by-id";
+import { type InfraRecipesGetByIdResponse } from '@/infrastructure/recipes/get-by-id';
 
-export const NEW_RECIPE_ID = "new_recipe";
+export const NEW_RECIPE_ID = 'new';
 
 export enum RecipePageMode {
-    VIEW,
-    EDIT,
+  VIEW,
+  EDIT,
 }
 
 export type EditButton = {
-    text: string;
-    severity: "danger" | "info";
-}
+  text: string;
+  severity: 'danger' | 'info';
+};
 
 export const editButton: Record<RecipePageMode, EditButton> = {
-    [RecipePageMode.VIEW]: {
-        text: "Редактировать",
-        severity: "danger",
-    },
-    [RecipePageMode.EDIT]: {
-        text: "К просмотру",
-        severity: "info",
-    },
-}
+  [RecipePageMode.VIEW]: {
+    text: 'Редактировать',
+    severity: 'danger',
+  },
+  [RecipePageMode.EDIT]: {
+    text: 'К просмотру',
+    severity: 'info',
+  },
+};
 
 export type RecipeManager = {
-    state: {
-        recipe: InfraRecipesGetByIdResponse | null;
-        mode: RecipePageMode;
-        isNew: boolean;
-    };
-    load: () => void;
-    changeMode: () => void;
-    updateTitle: (value: string) => void;
-    updateDescription: (value: string) => void;
-    save: () => void;
-    toList: () => void;
-    button: EditButton;
-}
+  state: {
+    recipe: InfraRecipesGetByIdResponse | null;
+    mode: RecipePageMode;
+    isNew: boolean;
+    tagInput: string;
+    ingredientInput: string;
+  };
+  load: () => void;
+  changeMode: () => void;
+  updateTitle: (value: string) => void;
+  updateDescription: (value: string) => void;
+  updateTagInput: (value: string) => void;
+  updateIngredientInput: (value: string) => void;
+  addTag: () => void;
+  removeTag: (value: string) => void;
+  addIngredient: () => void;
+  removeIngredient: (value: string) => void;
+  save: () => void;
+  delete: () => void;
+  toList: () => void;
+  button: EditButton;
+};

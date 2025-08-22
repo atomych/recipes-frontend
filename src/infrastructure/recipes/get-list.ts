@@ -1,20 +1,19 @@
-import query from "@/infrastructure/query";
+import query from '@/infrastructure/query';
 
-export type InfraRecipesGetListParams = {
-    userId: number;
-}
-
-export type InfraRecipesGetListRecipe = Partial<{
-    id: number;
-    title: string;
-    description: string;
-    ingredients: string[];
+export type InfraRecipesGetListRequest = Partial<{
+  total: number;
+  recipes: InfraRecipesGetListRecipe[];
 }>;
 
-export default function(payload: InfraRecipesGetListParams): Promise<InfraRecipesGetListRecipe[]> {
-    return query<InfraRecipesGetListRecipe[]>(
-        "/api/recipes",
-        "GET",
-        payload,
-    )
+export type InfraRecipesGetListRecipe = Partial<{
+  id: string;
+  title: string;
+  description: string;
+  ingredients: string[];
+  tags: string[];
+  last_update: string;
+}>;
+
+export default function (): Promise<InfraRecipesGetListRequest> {
+  return query<InfraRecipesGetListRequest>('/api/recipes/list', 'GET');
 }
