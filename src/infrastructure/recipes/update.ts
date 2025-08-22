@@ -1,28 +1,33 @@
-import query from "@/infrastructure/query";
+import query from '@/infrastructure/query';
 
 export type InfraRecipesUpdatePayload = {
-    params: InfraRecipesUpdateParams;
-    body: InfraRecipesUpdateBody;
-}
+  params: InfraRecipesUpdateParams;
+  body: InfraRecipesUpdateBody;
+};
 
 export type InfraRecipesUpdateParams = {
-    id: number;
-}
+  id: string;
+};
 
 export type InfraRecipesUpdateBody = Partial<{
-    title: string;
-    description: string;
+  title: string;
+  description: string;
+  ingredients: string[];
+  tags: string[];
 }>;
 
 export type InfraRecipesUpdateResponse = {
-    count: number;
-}
+  id: string;
+};
 
-export default function(payload: InfraRecipesUpdatePayload): Promise<InfraRecipesUpdateResponse> {
-    return query<InfraRecipesUpdateResponse>(
-        "/api/recipes",
-        "PUT",
-        payload.params,
-        payload.body,
-    )
+export default function (
+  payload: InfraRecipesUpdatePayload
+): Promise<InfraRecipesUpdateResponse> {
+  return query<InfraRecipesUpdateResponse>(
+    '/api/recipes/' + payload.params.id,
+    'PUT',
+    {
+      body: payload.body,
+    }
+  );
 }

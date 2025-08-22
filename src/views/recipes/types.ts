@@ -1,10 +1,11 @@
-import { type InfraRecipesGetListRecipe } from "@/infrastructure/recipes/get-list";
+import { type DogRecipe } from "@/views/recipes/adapters/recipes-adapter.ts";
 
 export type RecipesManager = {
-    state: {
-        list: InfraRecipesGetListRecipe[];
-    };
-    load: () => void;
-    view: (id: string) => void;
-    add: () => void;
-}
+  state: {
+    list: DogRecipe[];
+    loading: boolean;
+  };
+  load: () => void;
+  view: (id: string) => void;
+  add: () => void;
+};

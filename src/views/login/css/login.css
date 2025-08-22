@@ -1,0 +1,23 @@
+.login {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.login-form-item:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.login-form-item_button {
+  width: 100%;
+}
