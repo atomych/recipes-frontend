@@ -1,4 +1,4 @@
-import { type DogRecipe } from "@/views/recipes/adapters/recipes-adapter.ts";
+import { type DogRecipe } from '@/views/recipes/adapters/recipes-adapter.ts';
 
 export type RecipesManager = {
   state: {

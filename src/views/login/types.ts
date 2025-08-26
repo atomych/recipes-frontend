@@ -7,4 +7,5 @@ export type RecipesLogin = {
   updateLogin: (value: string) => void;
   updatePassword: (value: string) => void;
   login: () => void;
+  toRegister: () => void;
 };

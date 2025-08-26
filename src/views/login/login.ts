@@ -5,6 +5,7 @@ import { type RecipesLogin } from '@/views/login/types.ts';
 import infrastructure from '@/infrastructure';
 import { LocalStorageKeys } from '@/infrastructure/localstorage/consts.ts';
 import { useRouter } from 'vue-router';
+import { useToast } from 'primevue/usetoast';
 
 export default defineComponent({
   name: 'Login',
@@ -14,6 +15,7 @@ export default defineComponent({
   },
   setup: () => {
     const router = useRouter();
+    const toast = useToast();
 
     const RECIPES_LOGIN: RecipesLogin = {
       state: reactive({
@@ -37,7 +39,8 @@ export default defineComponent({
             password: RECIPES_LOGIN.state.password,
           });
           const code = response?.code;
-          if (!code) return;
+          const id = response?.id;
+          if (!code || !id) return;
           const tokens = await infrastructure.auth.getByCode({
             code,
           });
@@ -49,13 +52,22 @@ export default defineComponent({
             LocalStorageKeys.REFRESH_TOKEN,
             tokens.refresh
           );
+          const { name, email } = await infrastructure.user.getInfo();
+          infrastructure.user.currentUser = { id, name, email };
           await router.push({ name: 'recipes' });
         } catch (error) {
-          console.log(error);
+          toast.add({
+            severity: 'error',
+            life: 3000,
+            summary: (error as any).error || 'Ошибка авторизации',
+          });
         } finally {
           RECIPES_LOGIN.state.loading = false;
           RECIPES_LOGIN.state.password = '';
         }
+      },
+      toRegister: async () => {
+        await router.push({ name: 'register' });
       },
     };
 
