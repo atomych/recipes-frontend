@@ -7,6 +7,7 @@ export type InfraAuthLoginRequest = {
 
 export type InfraAuthLoginResponse = {
   code: string;
+  id: string;
 };
 
 export default function (

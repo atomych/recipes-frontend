@@ -27,7 +27,9 @@
           <p class="recipes-list__item-description">{{ recipe.description }}</p>
         </template>
         <template #footer>
-          <p class="recipes-list__item-lasttime">{{ "Последнее изменение: " + recipe.lastUpdate }}</p>
+          <p class="recipes-list__item-lasttime">
+            {{ 'Последнее изменение: ' + recipe.lastUpdate }}
+          </p>
         </template>
       </Card>
     </div>

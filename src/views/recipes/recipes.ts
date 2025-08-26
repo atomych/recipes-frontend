@@ -8,7 +8,7 @@ import { NEW_RECIPE_ID } from '@/views/recipe-page/types';
 import Loader from '@/components/loader.vue';
 import { useToast } from 'primevue/usetoast';
 import recipes from '../../infrastructure/recipes';
-import recipesAdapter from "@/views/recipes/adapters/recipes-adapter.ts";
+import recipesAdapter from '@/views/recipes/adapters/recipes-adapter.ts';
 
 export default defineComponent({
   name: 'Recipes',
@@ -38,7 +38,9 @@ export default defineComponent({
       load: async () => {
         try {
           RECIPES_MANAGER.state.loading = true;
-          RECIPES_MANAGER.state.list = recipesAdapter(await infrastructure.recipes.getList());
+          RECIPES_MANAGER.state.list = recipesAdapter(
+            await infrastructure.recipes.getList()
+          );
         } catch (error) {
           toast.add({
             severity: 'error',
