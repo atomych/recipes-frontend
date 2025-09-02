@@ -18,10 +18,16 @@
       />
       <Button
         :disabled="RECIPES_LOGIN.state.loading"
+        label="Войти"
         @click="RECIPES_LOGIN.login"
         class="login-form-item login-form-item_button"
-        >Войти</Button
-      >
+      />
+      <Button
+        variant="outlined"
+        label="Зарегистрироваться"
+        class="login-form-item login-form-item_button"
+        @click="RECIPES_LOGIN.toRegister"
+      />
     </div>
   </div>
 </template>

@@ -1,4 +1,4 @@
-import { defineComponent, onBeforeMount, reactive, ref } from 'vue';
+import { defineComponent, onBeforeMount, reactive } from 'vue';
 import {
   editButton,
   NEW_RECIPE_ID,
@@ -12,6 +12,8 @@ import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
 import Button from 'primevue/button';
 import Selector from '@/components/selector.vue';
+import Loader from '@/components/loader.vue';
+import Empty from '@/components/empty.vue';
 
 export default defineComponent({
   name: 'RecipePage',
@@ -20,6 +22,8 @@ export default defineComponent({
     Textarea,
     Button,
     Selector,
+    Loader,
+    Empty,
   },
   setup: () => {
     onBeforeMount(() => {
@@ -44,6 +48,7 @@ export default defineComponent({
 
     const RECIPE_MANAGER: RecipeManager = {
       state: reactive({
+        loading: false,
         recipe: null,
         mode: RecipePageMode.VIEW,
         isNew: false,
@@ -52,10 +57,11 @@ export default defineComponent({
       }),
       load: async () => {
         try {
+          RECIPE_MANAGER.state.loading = true;
           const recipeId = route.params.id as string;
           if (!recipeId) return;
           const recipe = await infrastructure.recipes.getById({ id: recipeId });
-          if (!recipe) return;
+          if (!recipe.id) return;
           RECIPE_MANAGER.state.recipe = recipe;
         } catch (error) {
           toast.add({
@@ -63,6 +69,8 @@ export default defineComponent({
             life: 3000,
             summary: (error as any).error || 'Ошибка загрузки рецепта',
           });
+        } finally {
+          RECIPE_MANAGER.state.loading = false;
         }
       },
       changeMode: () => {
@@ -108,6 +116,7 @@ export default defineComponent({
       },
       save: async () => {
         try {
+          RECIPE_MANAGER.state.loading = true;
           const response = await infrastructure.recipes.update({
             params: {
               id: RECIPE_MANAGER.state.recipe.id,
@@ -138,10 +147,12 @@ export default defineComponent({
             RECIPE_MANAGER.state.mode = RecipePageMode.VIEW;
             RECIPE_MANAGER.load();
           }
+          RECIPE_MANAGER.state.loading = false;
         }
       },
       delete: async () => {
         try {
+          RECIPE_MANAGER.state.loading = true;
           await infrastructure.recipes.delete({
             id: route.params.id as string,
           });
@@ -157,6 +168,8 @@ export default defineComponent({
             life: 3000,
             summary: (error as any).error || 'Ошибка удаления рецепта',
           });
+        } finally {
+          RECIPE_MANAGER.state.loading = false;
         }
       },
       get button() {

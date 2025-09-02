@@ -1,5 +1,5 @@
-import { type InfraRecipesGetListRequest } from '@/infrastructure/recipes/get-list.ts';
-import formatedDate from "@/common/date.ts";
+import { type InfraRecipesGetListResponse } from '@/infrastructure/recipes/get-list.ts';
+import formatedDate from '@/common/date.ts';
 
 export type DogRecipe = {
   id: string;
@@ -11,28 +11,25 @@ export type DogRecipe = {
 };
 
 export default function recipesAdapter(
-  response?: InfraRecipesGetListRequest
+  response?: InfraRecipesGetListResponse
 ): DogRecipe[] {
-  return (response?.recipes || []).reduce(
-    (acc: DogRecipe[], recipe) => {
-      const id = recipe.id || '';
-      const title = recipe.title?.trim() || '';
-      const description = recipe.description?.trim() || '';
-      const tags = recipe.tags || [];
-      const ingredients = recipe.ingredients || [];
-      const lastUpdate = formatedDate(recipe.last_update || "");
-      if (id) {
-        acc.push({
-          id,
-          title,
-          description,
-          tags,
-          ingredients,
-            lastUpdate,
-        });
-      }
-      return acc;
-    },
-    []
-  );
+  return (response?.recipes || []).reduce((acc: DogRecipe[], recipe) => {
+    const id = recipe.id || '';
+    const title = recipe.title?.trim() || '';
+    const description = recipe.description?.trim() || '';
+    const tags = recipe.tags || [];
+    const ingredients = recipe.ingredients || [];
+    const lastUpdate = formatedDate(recipe.last_update || '');
+    if (id) {
+      acc.push({
+        id,
+        title,
+        description,
+        tags,
+        ingredients,
+        lastUpdate,
+      });
+    }
+    return acc;
+  }, []);
 }

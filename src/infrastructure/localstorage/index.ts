@@ -15,4 +15,11 @@ export default {
       console.log(error);
     }
   },
+  clearItem: (key: LocalStorageKeys) => {
+    try {
+      return localStorage.removeItem(key);
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };

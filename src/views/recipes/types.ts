@@ -1,4 +1,5 @@
-import { type DogRecipe } from "@/views/recipes/adapters/recipes-adapter.ts";
+import { type DogRecipe } from '@/views/recipes/adapters/recipes-adapter.ts';
+import { type InfraRecipesGetListQuery } from "@/infrastructure/recipes/get-list.ts";
 
 export type RecipesManager = {
   state: {
@@ -9,3 +10,13 @@ export type RecipesManager = {
   view: (id: string) => void;
   add: () => void;
 };
+
+export type RecipesSearch = {
+  state: {
+    search: string;
+    timeout: number;
+  };
+  updateSearch: (value: string) => void;
+  debounceSearch: () => void;
+  query: InfraRecipesGetListQuery;
+}

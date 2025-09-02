@@ -1,6 +1,13 @@
 .recipe-page {
   padding: 20px 10px;
-  min-height: 100vh;
+  height: 100%;
+}
+
+.recipe-page-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 200px;
 }
 
 .recipe-page-header {
@@ -29,4 +36,11 @@
 
 .recipe-page__item:not(:last-child) {
   margin-bottom: 20px;
+}
+
+.recipe-page-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 200px;
 }

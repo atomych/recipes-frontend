@@ -19,48 +19,49 @@ async function query<T>(
     needAuth = true;
   }
 
+  // @ts-ignore
   const url = new URL(window.VUE_APP_API_URL + path);
 
-  if (options?.query && Object.keys(options.query).length) {
-    Object.keys(options.query).forEach((key) => {
+  if (options?.query) {
+    for (let key of Object.keys(options.query)) {
       url.searchParams.set(key, options.query[key]);
-    });
+    }
   }
 
   const token =
     infrastructure.localstorage.getItem(LocalStorageKeys.ACCESS_TOKEN) || '';
 
-  try {
-    const response = await fetch(url, {
-      method,
-      headers: {
-        'Content-Type': 'application/json',
-        ...(needAuth && { Authorization: 'Bearer ' + token }),
-      },
-      ...(options?.body && { body: JSON.stringify(options.body) }),
-    });
-    if (response.status === 401) {
-      const refresh =
-        infrastructure.localstorage.getItem(LocalStorageKeys.REFRESH_TOKEN) ||
-        '';
+  const response = await fetch(url, {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      ...(needAuth && { Authorization: 'Bearer ' + token }),
+    },
+    ...(options?.body && { body: JSON.stringify(options.body) }),
+  });
+  if (response.status === 400 || response.status === 500) {
+    return await new Promise(async (resolve, reject) =>
+      reject(await response.json())
+    );
+  }
+  if (response.status === 401) {
+    const refresh =
+      infrastructure.localstorage.getItem(LocalStorageKeys.REFRESH_TOKEN) || '';
+    try {
       const { access } = await infrastructure.auth.getByRefresh({
         refresh: refresh,
       });
-      if (!access) {
-        window.location.href = '/login';
-        return;
-      }
       infrastructure.localstorage.setItem(
         LocalStorageKeys.ACCESS_TOKEN,
         access
       );
       window.location.reload();
+    } catch (error) {
+      window.location.href = '/login';
+      return;
     }
-    return await response.json();
-  } catch (error) {
-    console.log(error);
-    window.location.href = '/login';
   }
+  return await response.json();
 }
 
 export default query;

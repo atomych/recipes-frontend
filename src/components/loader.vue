@@ -1,6 +1,10 @@
 <template>
-  <div class="dogrecipres-loader">
-    <div class="dogrecipes-loader-spinner"></div>
+  <div class="dogrecipes-loader">
+    <div class="dogrecipes-loader-wrapper">
+      <div class="dogrecipes-loader-circle">
+        <div />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -13,74 +17,66 @@
 </script>
 
 <style>
-  .dogrecipres-loader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .dogrecipes-loader {
+    width: fit-content;
+    height: 32px;
+  }
+
+  @keyframes animate {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  .dogrecipes-loader-circle div {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border: 2px solid #00a800;
+    border-top-color: transparent;
+    border-radius: 50%;
+  }
+
+  .dogrecipes-loader-circle div {
+    animation: animate 1s linear infinite;
+    top: 16px;
+    left: 16px;
+  }
+
+  .dogrecipes-loader-wrapper {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    overflow: hidden;
+    background: none;
+  }
+
+  .dogrecipes-loader-circle {
     width: 100%;
     height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0;
   }
 
-  .dogrecipes-loader-spinner {
-    height: 100px;
-    width: 100px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -50 0 0 -50;
-    -webkit-animation: rotation 1s infinite linear;
-    -moz-animation: rotation 1s infinite linear;
-    -o-animation: rotation 1s infinite linear;
-    animation: rotation 1s infinite linear;
-    border: 6px solid rgba(0, 0, 0, 0.2);
-    border-radius: 100%;
+  .dogrecipes-loader-circle div {
+    box-sizing: content-box;
   }
 
-  .dogrecipes-loader-spinner::before {
-    content: '';
-    display: block;
-    position: absolute;
-    left: -6px;
-    top: -6px;
-    height: 100%;
-    width: 100%;
-    border-top: 6px solid rgba(0, 0, 0, 0.8);
-    border-left: 6px solid transparent;
-    border-bottom: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-radius: 100%;
+  .dogrecipes-loader,
+  .dogrecipes-loader .dogrecipes-loader-wrapper {
+    width: 56px;
+    height: 56px;
   }
 
-  @-webkit-keyframes rotation {
-    from {
-      -webkit-transform: rotate(0deg);
-    }
-    to {
-      -webkit-transform: rotate(359deg);
-    }
-  }
-  @-moz-keyframes rotation {
-    from {
-      -moz-transform: rotate(0deg);
-    }
-    to {
-      -moz-transform: rotate(359deg);
-    }
-  }
-  @-o-keyframes rotation {
-    from {
-      -o-transform: rotate(0deg);
-    }
-    to {
-      -o-transform: rotate(359deg);
-    }
-  }
-  @keyframes rotation {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(359deg);
-    }
+  .dogrecipes-loader .dogrecipes-loader-circle div {
+    width: 44px;
+    height: 44px;
+    left: 28px;
+    top: 28px;
   }
 </style>
