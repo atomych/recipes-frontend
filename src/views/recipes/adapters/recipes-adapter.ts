@@ -1,4 +1,4 @@
-import { type InfraRecipesGetListRequest } from '@/infrastructure/recipes/get-list.ts';
+import { type InfraRecipesGetListResponse } from '@/infrastructure/recipes/get-list.ts';
 import formatedDate from '@/common/date.ts';
 
 export type DogRecipe = {
@@ -11,7 +11,7 @@ export type DogRecipe = {
 };
 
 export default function recipesAdapter(
-  response?: InfraRecipesGetListRequest
+  response?: InfraRecipesGetListResponse
 ): DogRecipe[] {
   return (response?.recipes || []).reduce((acc: DogRecipe[], recipe) => {
     const id = recipe.id || '';

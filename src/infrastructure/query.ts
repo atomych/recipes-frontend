@@ -19,12 +19,13 @@ async function query<T>(
     needAuth = true;
   }
 
+  // @ts-ignore
   const url = new URL(window.VUE_APP_API_URL + path);
 
-  if (options?.query && Object.keys(options.query).length) {
-    Object.keys(options.query).forEach((key) => {
+  if (options?.query) {
+    for (let key of Object.keys(options.query)) {
       url.searchParams.set(key, options.query[key]);
-    });
+    }
   }
 
   const token =
@@ -38,7 +39,7 @@ async function query<T>(
     },
     ...(options?.body && { body: JSON.stringify(options.body) }),
   });
-  if (response.status === 400) {
+  if (response.status === 400 || response.status === 500) {
     return await new Promise(async (resolve, reject) =>
       reject(await response.json())
     );

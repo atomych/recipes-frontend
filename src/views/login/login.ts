@@ -39,8 +39,7 @@ export default defineComponent({
             password: RECIPES_LOGIN.state.password,
           });
           const code = response?.code;
-          const id = response?.id;
-          if (!code || !id) return;
+          if (!code) return;
           const tokens = await infrastructure.auth.getByCode({
             code,
           });
@@ -52,9 +51,7 @@ export default defineComponent({
             LocalStorageKeys.REFRESH_TOKEN,
             tokens.refresh
           );
-          const { name, email } = await infrastructure.user.getInfo();
-          infrastructure.user.currentUser = { id, name, email };
-          await router.push({ name: 'recipes' });
+          await router.push({ name: 'home' });
         } catch (error) {
           toast.add({
             severity: 'error',

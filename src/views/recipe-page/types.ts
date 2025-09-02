@@ -25,6 +25,7 @@ export const editButton: Record<RecipePageMode, EditButton> = {
 
 export type RecipeManager = {
   state: {
+    loading: boolean;
     recipe: InfraRecipesGetByIdResponse | null;
     mode: RecipePageMode;
     isNew: boolean;

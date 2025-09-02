@@ -1,7 +1,9 @@
+import { ref } from "vue";
+
 export type InfraUserCurrentUser = {
-  id: string;
   email: string;
   name: string;
+  avatar: string
 };
 
-export let currentUser: InfraUserCurrentUser | null = null;
+export const currentUser = ref<InfraUserCurrentUser | null>(null);

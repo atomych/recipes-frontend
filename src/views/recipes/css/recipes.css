@@ -1,6 +1,14 @@
 .recipes {
   padding: 20px 10px;
-  min-height: 100vh;
+  height: 100%;
+}
+
+.recipes-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 200px;
 }
 
 .recipes-header {
@@ -30,4 +38,25 @@
 
 .recipes-list__item-lasttime {
   text-align: right;
+}
+
+.recipes-empty {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-top: 200px;
+}
+
+.recipes-search {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin-bottom: 15px;
+}
+
+.recipes-search__input {
+  width: 100%;
 }
