@@ -1,0 +1,51 @@
+.recipes-filters-dialog {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.recipes-filters-dialog .p-dialog-header,
+.recipes-filters-dialog .p-dialog-content,
+.recipes-filters-dialog .p-dialog-footer {
+  width: 100%;
+}
+
+.recipes-filters-dialog .p-dialog-content {
+  flex-grow: 1;
+}
+
+.recipes-filters-dialog-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.recipes-filters-dialog-body-input-wrapper {
+  width: 100%;
+}
+
+.recipes-filters-dialog-body-input-wrapper:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.recipes-filters-dialog-body-input {
+  width: 100%;
+}
+
+.recipes-filters-dialog-body-input-label {
+  margin-bottom: 5px;
+}
+
+.recipes-filters-dialog-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.recipes-filters-dialog-footer__button:not(:last-child) {
+  margin-right: 10px;
+}

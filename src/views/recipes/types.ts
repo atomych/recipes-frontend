@@ -1,5 +1,5 @@
 import { type DogRecipe } from '@/views/recipes/adapters/recipes-adapter.ts';
-import { type InfraRecipesGetListQuery } from "@/infrastructure/recipes/get-list.ts";
+import { type InfraRecipesGetListQuery } from '@/infrastructure/recipes/get-list.ts';
 
 export type RecipesManager = {
   state: {
@@ -11,12 +11,31 @@ export type RecipesManager = {
   add: () => void;
 };
 
-export type RecipesSearch = {
+export type RecipesFilters = {
   state: {
     search: string;
+    tagsOptions: string[];
+    ingredientsOptions: string[];
+    tags: string[];
+    ingredients: string[];
+    tagsTemp: string[];
+    ingredientsTemp: string[];
     timeout: number;
+    isFiltersOpen: boolean;
   };
   updateSearch: (value: string) => void;
   debounceSearch: () => void;
+  setTagsOptions: (value: string[]) => void;
+  setIngredientsOptions: (value: string[]) => void;
+  updateTags: () => void;
+  updateIngredients: () => void;
+  updateTagsTemp: (value: string[]) => void;
+  updateIngredientsTemp: (value: string[]) => void;
+  openFilters: () => void;
+  clearFilters: () => void;
+  closeFilters: () => void;
+  applyFilters: () => void;
+  saveFilters: () => void;
+  updateFiltersValidation: () => void;
   query: InfraRecipesGetListQuery;
-}
+};

@@ -19,6 +19,10 @@
   margin-bottom: 20px;
 }
 
+.recipes-header__button:not(:last-child) {
+  margin-right: 10px;
+}
+
 .recipes-list {
   padding: 10px;
 }

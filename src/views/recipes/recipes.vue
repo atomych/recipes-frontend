@@ -3,16 +3,30 @@
     <div class="recipes-wrapper">
       <header class="recipes-header">
         <h2 class="recipes-header__title">Мои рецепты</h2>
-        <Button
-          type="button"
-          label="Добавить"
-          icon="pi pi-plus"
-          class="recipes-header__button"
-          @click="RECIPES_MANAGER.add"
-        />
+        <div class="recipes-header__button-wrapper">
+          <Button
+            type="button"
+            label="Фильтры"
+            icon="pi pi-filter"
+            class="recipes-header__button"
+            @click="RECIPES_FILTERS.openFilters"
+          />
+          <Button
+            type="button"
+            label="Добавить"
+            icon="pi pi-plus"
+            class="recipes-header__button"
+            @click="RECIPES_MANAGER.add"
+          />
+        </div>
       </header>
       <div class="recipes-search">
-        <InputText placeholder="Введите название или описание" :model-value="RECIPES_SEARCH.state.search"  @update:model-value="RECIPES_SEARCH.updateSearch($event)" class="recipes-search__input" />
+        <InputText
+          placeholder="Введите название или описание"
+          :model-value="RECIPES_FILTERS.state.search"
+          @update:model-value="RECIPES_FILTERS.updateSearch($event)"
+          class="recipes-search__input"
+        />
       </div>
       <div v-if="RECIPES_MANAGER.state.loading" class="recipes-loader">
         <Loader />
@@ -46,6 +60,7 @@
         />
       </div>
     </div>
+    <RecipesFiltersDialog :manager="RECIPES_FILTERS" />
   </div>
 </template>
 

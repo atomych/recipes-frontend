@@ -12,7 +12,9 @@
           <Avatar size="large" :label="$infra.user.currentUser.value.avatar" />
         </div>
         <div class="page-header-right-user-info">
-          <p class="page-header-right-user-info__name">{{ $infra.user.currentUser.value.name }}</p>
+          <p class="page-header-right-user-info__name">
+            {{ $infra.user.currentUser.value.name }}
+          </p>
         </div>
         <div class="page-header-right-user-exit">
           <Button icon="pi pi-sign-out" @click="exit" />
@@ -26,8 +28,8 @@
   import { defineComponent } from 'vue';
   import Avatar from 'primevue/avatar';
   import Button from 'primevue/button';
-  import infrastructure from "@/infrastructure/index.js";
-  import { LocalStorageKeys } from "@/infrastructure/localstorage/consts.js";
+  import infrastructure from '@/infrastructure/index.js';
+  import { LocalStorageKeys } from '@/infrastructure/localstorage/consts.js';
 
   export default defineComponent({
     name: 'PageHeader',
@@ -39,6 +41,12 @@
       function exit() {
         infrastructure.localstorage.clearItem(LocalStorageKeys.ACCESS_TOKEN);
         infrastructure.localstorage.clearItem(LocalStorageKeys.REFRESH_TOKEN);
+        infrastructure.localstorage.clearItem(
+          LocalStorageKeys.RECIPES_FILTER_TAGS
+        );
+        infrastructure.localstorage.clearItem(
+          LocalStorageKeys.RECIPES_FILTER_INGREDIENTS
+        );
         window.location.reload();
       }
 
